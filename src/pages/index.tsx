@@ -1,8 +1,12 @@
 import Head from 'next/head';
-import { Inter } from '@next/font/google';
+// import { Inter } from '@next/font/google';
 import Header from '~/components/Header';
+import HeroSection from '~/components/Hero';
+import Menu from '~/components/Menu';
+import Testimonials from '~/components/Testimonials';
+import Footer from '~/components/Footer';
 
-const inter = Inter({ subsets: ['latin'] });
+// const inter = Inter({ subsets: ['latin'] });
 
 export default function Home() {
   return (
@@ -33,6 +37,10 @@ export default function Home() {
       </Head>
       <main className='max-w-[1280px] mx-auto my-5'>
         <Header />
+        <HeroSection />
+        <Menu />
+        <Testimonials />
+        <Footer />
       </main>
     </>
   );

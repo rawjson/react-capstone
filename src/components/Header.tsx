@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Fragment } from 'react';
 import { HamburgerIcon } from '~/assets';
+import { markaziText } from 'config';
 
 const navigation = [
   { label: 'Home', href: '' },
@@ -32,11 +33,15 @@ export default function Header() {
 const NavigationMenuDesktop = () => {
   return (
     <nav className='hidden md:block px-4'>
-      <ul className='flex space-x-10'>
+      <ul className='flex space-x-5 xl:space-x-10'>
         {navigation.map((link, index) => {
           return (
             <li key={index}>
-              <Link href={link.href} className='font-medium text-lg'>
+              <Link
+                href={link.href}
+                className='font-medium text-2xl'
+                style={markaziText.style}
+              >
                 {link.label}
               </Link>
             </li>
