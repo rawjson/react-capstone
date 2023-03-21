@@ -1,12 +1,10 @@
 import Head from 'next/head';
-// import { Inter } from '@next/font/google';
-import Header from '~/components/Header';
 import HeroSection from '~/components/Hero';
 import Menu from '~/components/Menu';
 import Testimonials from '~/components/Testimonials';
 import Footer from '~/components/Footer';
-
-// const inter = Inter({ subsets: ['latin'] });
+import Featured from '~/components/Featured';
+import Layout from '~/components/Layout';
 
 export default function Home() {
   return (
@@ -35,13 +33,13 @@ export default function Home() {
         <meta name='language' content='english' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <main className='max-w-[1280px] mx-auto my-5'>
-        <Header />
+      <Layout>
         <HeroSection />
         <Menu />
         <Testimonials />
+        <Featured />
         <Footer />
-      </main>
+      </Layout>
     </>
   );
 }

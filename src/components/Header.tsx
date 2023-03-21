@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { Fragment } from 'react';
 import { HamburgerIcon } from '~/assets';
 import { markaziText } from 'config';
+import Router from 'next/router';
 
 const navigation = [
   { label: 'Home', href: '' },
@@ -22,6 +23,7 @@ export default function Header() {
         width={200}
         height={50}
         alt='little lemon restaurant logo'
+        onClick={() => Router.push('/')}
       />
       <NavigationMenuDesktop />
       <NavigationMenuMobile />
