@@ -1,5 +1,4 @@
 import Head from 'next/head';
-import Header from '~/components/Header';
 import Layout from '~/components/Layout';
 import ReserveTable from '~/components/ReserveTable';
 
@@ -16,6 +15,7 @@ export default function Reservations() {
         />
         <meta name='og:image' content='/greek_salad.jpg' />
       </Head>
+
       <Layout>
         <ReserveTable />
       </Layout>
