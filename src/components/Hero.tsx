@@ -14,7 +14,10 @@ export default function HeroSection() {
           eiusmod tempor incididunt ut labore et dolore magna aliqua.
         </p>
         <div className='mt-10'>
-          <Button onClick={() => Router.push('/reservations')}>
+          <Button
+            data-cy='nav-reservations'
+            onClick={() => Router.push('/reservations')}
+          >
             Reserve a Table
           </Button>
         </div>

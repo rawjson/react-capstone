@@ -17,7 +17,7 @@ const navigation = [
 
 export default function Header() {
   return (
-    <header className='flex items-center justify-between space-x-5 px-4'>
+    <header className='flex items-center justify-between space-x-5 px-4 py-2'>
       <Image
         src='/Logo.svg'
         width={200}
