@@ -65,7 +65,7 @@ export default function ReserveTable() {
     <>
       <form
         id='table-booking-form'
-        className='flex flex-col px-4 text-2xl space-y-4 bg-[#495E57] h-screen py-10 text-white'
+        className='flex flex-col px-4 text-2xl space-y-4 bg-[#495E57] h-screen sm:h-full py-10 text-white sm:rounded-lg sm:max-w-lg m-auto sm:my-20'
         style={markaziText.style}
         onSubmit={handleSubmit}
       >
@@ -81,7 +81,7 @@ export default function ReserveTable() {
             onChange={handleOnChange}
             value={date}
             required
-            min='21/03/2023'
+            min={new Date().toISOString().substring(0, 10)}
           />
         </div>
 
@@ -118,7 +118,7 @@ export default function ReserveTable() {
             name='guests'
             onChange={handleOnChange}
             value={guests}
-            className='border border-gray-200 h-12 px-2 rounded-lg text-black text-center'
+            className='border border-gray-200 h-12 px-4 rounded-lg text-black'
             required
           />
         </div>
