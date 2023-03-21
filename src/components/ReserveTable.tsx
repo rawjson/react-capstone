@@ -1,22 +1,39 @@
 import { Menu, Transition } from '@headlessui/react';
 import { markaziText } from 'config';
 import { ChangeEvent, FormEvent, Fragment, useMemo, useState } from 'react';
-import { ChevronDownIcon } from '~/assets';
+import { CheckCircleIcon, ChevronDownIcon } from '~/assets';
 import Button from './Button';
+import Router from 'next/router';
+
 const OccasionMenuItems = ['Birthday', 'Engagement', 'Anniversary'];
+
+const initState = {
+  email: '',
+  name: '',
+  ocassion: 'Occasion',
+  date: '',
+  time: 'Select...',
+  guests: 1,
+  isOccasionError: false,
+  isTimeError: false,
+  isSuccess: false,
+};
 
 export default function ReserveTable() {
   const [
-    { ocassion, date, time, guests, isOccasionError, isTimeError },
+    {
+      ocassion,
+      date,
+      time,
+      guests,
+      isOccasionError,
+      isTimeError,
+      isSuccess,
+      email,
+      name,
+    },
     setFormState,
-  ] = useState({
-    ocassion: 'Occasion',
-    date: '',
-    time: 'Select...',
-    guests: 1,
-    isOccasionError: false,
-    isTimeError: false,
-  });
+  ] = useState(initState);
 
   const seededRandom = function (seed: any) {
     var m = 2 ** 35 - 31;
@@ -49,17 +66,54 @@ export default function ReserveTable() {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
+
+    if (time === 'Select...') {
+      setFormState((prev) => ({ ...prev, isTimeError: true }));
+      return;
+    }
+
     if (ocassion === 'Occasion') {
       setFormState((prev) => ({ ...prev, isOccasionError: true }));
       return;
     }
 
-    return true;
+    setFormState((prev) => ({ ...prev, isSuccess: true }));
+
+    return;
   };
 
   const availableTimes: Array<string> = useMemo(() => {
     return fetchAPI(new Date(date));
   }, [date]);
+
+  if (isSuccess) {
+    return (
+      <>
+        <div
+          className='my-20 flex flex-col items-center space-x-2 justify-center w-full'
+          style={markaziText.style}
+        >
+          <div className='flex items-center space-x-2 '>
+            <CheckCircleIcon className='w-8 h-8 text-green-500' />
+            <span className='text-4xl font-semibold'>Booking confirmed</span>
+          </div>
+
+          <p className='max-w-sm text-center text-xl mt-5'>
+            You will receive your booking confirmation via email. Thank you for
+            visiting Little Lemon website.
+          </p>
+          <button
+            onClick={() => {
+              Router.push('/');
+            }}
+            className='mt-10 text-2xl border border-green-500 px-4 h-12 w-56 rounded-lg text-green-500 hover:bg-gray-50'
+          >
+            Go Back
+          </button>
+        </div>
+      </>
+    );
+  }
 
   return (
     <>
@@ -70,7 +124,41 @@ export default function ReserveTable() {
         onSubmit={handleSubmit}
       >
         <div className='grid grid-cols-2 items-center'>
-          <label htmlFor='date-picker font-semibold' className='font-semibold'>
+          <label htmlFor='email' className='font-semibold'>
+            Email
+          </label>
+
+          <input
+            type='email'
+            placeholder='Enter email'
+            id='email'
+            name='email'
+            onChange={handleOnChange}
+            value={email}
+            className='border border-gray-200 h-12 px-4 rounded-lg text-black'
+            required
+          />
+        </div>
+
+        <div className='grid grid-cols-2 items-center'>
+          <label htmlFor='name' className='font-semibold'>
+            Name
+          </label>
+
+          <input
+            type='text'
+            placeholder='Enter full name'
+            id='name'
+            name='name'
+            onChange={handleOnChange}
+            value={name}
+            className='border border-gray-200 h-12 px-4 rounded-lg text-black'
+            required
+          />
+        </div>
+
+        <div className='grid grid-cols-2 items-center'>
+          <label htmlFor='date-picker' className='font-semibold'>
             Select a date
           </label>
           <input
@@ -105,7 +193,7 @@ export default function ReserveTable() {
         </div>
 
         <div className='grid grid-cols-2 items-center'>
-          <label htmlFor='time-picker' className='font-semibold'>
+          <label htmlFor='guests' className='font-semibold'>
             Number of guests
           </label>
 
@@ -142,7 +230,7 @@ export default function ReserveTable() {
           />
         </div>
 
-        <div className='py-5'>
+        <div className='pt-5'>
           <Button
             type='submit'
             // onClick={handleSubmit}
@@ -191,8 +279,8 @@ const PopoverMenu = ({
       </div>
 
       {isError && (
-        <span className='absolute left-0 -bottom-7 text-[18px] italic text-red-400'>
-          Select an occasion
+        <span className='absolute left-0 -bottom-6 text-[14px] italic text-red-400'>
+          This field is required
         </span>
       )}
 
